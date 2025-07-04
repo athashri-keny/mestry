@@ -15,8 +15,9 @@ async function dbConnect(): Promise<void> {
   try {
    const db =  await mongoose.connect(process.env.MONGODB_URL || '' )
    // extracting data 
-
- connection.isConnected = db.connections[0].readyState
+ 
+   // You store it in connection.isConnected to avoid reconnecting every time dbConnect() runs.
+ connection.isConnected = db.connections[0].readyState //  readyState tells you if you're connected (1), disconnected (0), etc.
  
  console.log("Db Connect Sucessfully")
   } catch (error) {

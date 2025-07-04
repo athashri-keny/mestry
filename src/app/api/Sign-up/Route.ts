@@ -6,7 +6,7 @@ import { sendVerificationEmail } from "@/Helpers/SendVerificationEmail";
 
 
 export async function POST(request: Request) {
-    await dbConnect()
+    await dbConnect() /// trying to dbconnect 
 
     try {
 
