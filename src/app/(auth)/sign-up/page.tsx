@@ -17,16 +17,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+
 function SignInPage() {
   const [username, setUsername] = useState("");
   const [usernamemessage, setUsernameMessage] = useState("");
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [debouncedUsername] = useDebounceValue(username, 300);
+  const [debouncedUsername] = useDebounceValue(username, 300); // returns an array 
   const router = useRouter();
 
+  // zod implementation 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
+    // setting the default value of form 
     defaultValues: {
       username: '',
       email: '',
@@ -34,6 +37,7 @@ function SignInPage() {
     }
   });
 
+  
   useEffect(() => {
     const checkUsernameUnique = async () => {
       if (debouncedUsername) {
@@ -43,6 +47,8 @@ function SignInPage() {
         try {
           const response = await axios.get(`/api/check-username-unique?username=${debouncedUsername}`);
           setUsernameMessage(response.data.message);
+          console.log(response)
+
         } catch (error) {
           const AxiosError = error as AxiosError<ApiResponse>;
           setUsernameMessage(AxiosError.response?.data?.message || "Error checking Username Failed");
@@ -55,16 +61,20 @@ function SignInPage() {
     checkUsernameUnique();
   }, [debouncedUsername]);
 
+  // form submit 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
 
     try {
       await axios.post<ApiResponse>('/api/sign-up', data);
+      console.log(data)
       toast("Sign up successful!");
-      router.replace(`verify/${data.username}`);
+      router.replace(`verify/${username}`);
+
     } catch (error) {
       const AxiosError = error as AxiosError<ApiResponse>;
       const errorMessage = AxiosError.response?.data?.message || "Signup failed!";
+
       toast(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -154,6 +164,7 @@ function SignInPage() {
             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
               Sign up
             </Link>
+            
           </p>
         </div>
       </div>

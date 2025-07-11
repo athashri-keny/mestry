@@ -1,12 +1,13 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+import { authOptions } from "../../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/Model/User";
 import { User } from "next-auth";
-import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 
-export async function GET(request:NextRequest) {
+export async function DELETE(request:NextRequest , {params}: {params: {messageid: string}}) {
+  const messageId =  params.messageid
+   
     await dbConnect()
 
     
@@ -23,22 +24,17 @@ export async function GET(request:NextRequest) {
     )
  }  
 
-// finding the user in database
- const userId = new mongoose.Types.ObjectId(user._id) // converting 
-
  try {
-    const user = await UserModel.aggregate([
-        {$match: {_id: userId}},
-        {$unwind: '$messages'},
-        {$sort: {'messages.createdAt': -1}},
-        {$group: {_id: '$id' , messages: {$push: 'messages'}}}
-    ])
+   const updatedResult =  await UserModel.updateOne(
+        {_id: user._id},
+        {$pull: {messages: {_id: messageId}}}
+    )
 
-    if (!user || user.length === 0) {
-        return Response.json(
+    if (updatedResult.modifiedCount == 0) {
+          return Response.json(
         {
             success: false,
-            message: "User not Found"
+            message: "Message Not found or already deleted"
         },
         {status: 401}
     )
@@ -46,21 +42,23 @@ export async function GET(request:NextRequest) {
       return Response.json(
         {
             success: true,
-            messages: user[0].messages
+            message: "Message Deleted Sucessfully"
         },
-        {status: 201}
+        {status: 200}
     )
 
  } catch (error) {
-    
+    console.log("Error while deleting the message")
       return Response.json(
         {
             success: false,
-            message: "Failed"
+            message: "Error In delete Message Route"
         },
         {status: 401}
     )
  }
+
+
 
 
 }

@@ -29,7 +29,7 @@ export async function GET(request: Request) {
         const usernameErrors = result.error.format().username?._errors || [] // extracting error 
         return Response.json({
             success: false,
-            message: "InCorrrect Username"
+            message: "Username must be 3 char long"
         },
         {
             status: 400
