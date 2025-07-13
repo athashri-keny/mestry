@@ -5,7 +5,7 @@ import UserModel from "@/Model/User";
 import { User } from "next-auth";
 
 
-
+// checking the state
 export async function POST(request:Request) {
     await dbConnect()
 
