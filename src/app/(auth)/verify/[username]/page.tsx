@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useParams } from 'next/navigation'
@@ -14,7 +13,7 @@ import {
   Form, FormControl,  FormField, FormItem, FormLabel, FormMessage
 } from "@/components/ui/form";
 import { Input } from '@/components/ui/input'
-import { Button } from '@react-email/components'
+import { Button } from '@/components/ui/button'
 
 
 function VerifyAccount() {
@@ -24,6 +23,9 @@ function VerifyAccount() {
 
       const form = useForm<z.infer<typeof verifySchema>>({
         resolver: zodResolver(verifySchema),       
+        defaultValues: {
+          code: ''
+        }
       }
     );
 
@@ -37,11 +39,11 @@ function VerifyAccount() {
     )    
     
    toast.success(respone.data.message)
-   toast.error("Error while plz try again  ")
    router.replace('/sign-in')
 
     } catch (error) {
         console.log("Error occured while verifying the code", error)
+           toast.error("Error while plz try again  ")
 
     }
     }

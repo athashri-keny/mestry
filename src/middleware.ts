@@ -1,40 +1,42 @@
-import { NextRequest ,  NextResponse } from 'next/server'
-export {default} from 'next-auth/middleware'
+import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
+export { default } from 'next-auth/middleware'
 
-
-// this is used for 
-// This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+  const token = await getToken({ req: request })
+  const url = new URL(request.url)
 
-const token  = await getToken({req: request}) // getting the token 
-const url = new URL(request.url); // current url 
+  const isAuth = !!token
 
-// if token is there then the user can go in these pages
- if (token && 
-    (
-        url.pathname.startsWith('/sign-in') || 
-        url.pathname.startsWith('/sign-up') ||
-        url.pathname.startsWith('/verify') || 
-        url.pathname.startsWith('/')
-    )
- ) {
+  // ✅ Only exact auth-related public pages
+  const isAuthPage = ['/sign-in', '/sign-up', '/verify'].some(path =>
+    url.pathname === path || url.pathname.startsWith(path + '/')
+  )
+
+  const isProtectedRoute = url.pathname.startsWith('/dashboard')
+
+  console.log('🔥 middleware running')
+  console.log('Pathname:', url.pathname)
+  console.log('Token:', token)
+
+  if (isAuth && isAuthPage) {
+    console.log('✅ Authenticated user on auth page → redirecting to /dashboard')
     return NextResponse.redirect(new URL('/dashboard', request.url))
- }
- // if token is not there and user tries to access dashboard it redirects to sign-in
- if (!token && url.pathname.startsWith('/dashboard')) {
-   return NextResponse.redirect(new URL ('/sign-in' , request.url))
- }
-   return NextResponse.next()
+  }
+
+  if (!isAuth && isProtectedRoute) {
+    console.log('🚫 Unauthenticated user on dashboard → redirecting to /sign-in')
+    return NextResponse.redirect(new URL('/sign-in', request.url))
+  }
+
+  return NextResponse.next()
 }
- 
-// this is for where to run middleware 
+
 export const config = {
   matcher: [
     '/sign-in',
     '/sign-up',
-    '/',
+    '/verify/:path*',
     '/dashboard/:path*',
-    '/verify/:path*'
-]
+  ],
 }

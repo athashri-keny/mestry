@@ -42,7 +42,9 @@ function dashboard() {
     setSwitchLoading(true)
 
     try {
-    const response =  await axios.get('/api/accept-messages')
+    const response =  await axios.get('/api/accept-messages' , {
+      withCredentials: true
+    })
     setValue('acceptMessages' , response.data.isAcceptingMessage)
 
     } catch (error) {
@@ -57,22 +59,25 @@ function dashboard() {
 
 
 const fetchMessages = useCallback(async(refresh: boolean = false) => {
-setIsloading(false)
+setIsloading(true)
  setSwitchLoading(true) // kaam kar rahe hai
 
  try {
 
-   const response =  await axios.get('/api/get-messages')
-   setmessages(response.data.message || [])
+   const response =  await axios.get('/api/get-messages' , {
+    withCredentials: true
+   })
+setmessages(response.data.messages || [])
    if (refresh) {
     toast.success("Showing lastest  messages")
    }
+
 
  } catch (error) {
   console.log("Error while Fetching the message")
 
  } finally {
-  setIsloading(true)
+  setIsloading(false)
   setSwitchLoading(true)
  }
 } , [setIsloading , setmessages])
@@ -101,7 +106,8 @@ const handleSwitchChangee = async () => {
   }
 };
 
- const {username} = session?.user as User
+ const username = session?.user as User | undefined
+
  // todo more research on this 
  const baseUrl = `${window.location.protocol}//${window.location.host}` // copying the username 
  const profileUrl = `${baseUrl}/u/${username}` // adding user username to it 

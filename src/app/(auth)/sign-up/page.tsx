@@ -24,6 +24,7 @@ function SignInPage() {
   const [isCheckingUsername, setIsCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [debouncedUsername] = useDebounceValue(username, 300); // returns an array 
+  const [showpassword , setshowpassword]  = useState(false)
   const router = useRouter();
 
   // zod implementation 
@@ -134,24 +135,34 @@ function SignInPage() {
               )}
             />
 
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+  name="password"
+  control={form.control}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Password</FormLabel>
+      <FormControl>
+        <div className="relative">
+          <Input
+            type={showpassword ? "text" : "password"}
+            placeholder="Password"
+            {...field}
+          />
+          <button
+            type="button"
+            onClick={() => setshowpassword(!showpassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500 hover:text-black"
+          >
+            {showpassword ? "Hide" : "Show"}
+          </button>
+        </div>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
 
+             
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Please wait..." : "Sign up"}
             </Button>

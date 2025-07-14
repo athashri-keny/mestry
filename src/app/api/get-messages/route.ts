@@ -13,6 +13,8 @@ export async function GET(request:NextRequest) {
  const session = await getServerSession(authOptions) // getServerSession is used to check if the user is logged-in or not 
  const user: User = session?.user as User
 
+ console.log("Session user:", session?.user); 
+
  if (!session || !session.user) {
     return Response.json(
         {
@@ -23,6 +25,7 @@ export async function GET(request:NextRequest) {
     )
  }  
 
+
 // finding the user in database
  const userId = new mongoose.Types.ObjectId(user._id) // converting 
 
@@ -31,7 +34,7 @@ export async function GET(request:NextRequest) {
         {$match: {_id: userId}},
         {$unwind: '$messages'},
         {$sort: {'messages.createdAt': -1}},
-        {$group: {_id: '$id' , messages: {$push: 'messages'}}}
+        {$group: {_id: '$_id' , messages: {$push: '$messages'}}}
     ])
 
     if (!user || user.length === 0) {

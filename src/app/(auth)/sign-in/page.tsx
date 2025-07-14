@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Form } from '@/components/ui/form' 
+import { Form, FormControl } from '@/components/ui/form' 
 import z from 'zod'
 import { toast } from 'sonner'
 import {  FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -17,6 +17,7 @@ import { signIn } from 'next-auth/react'
 function signin() {
  const router = useRouter()
  const [isSubmitting , setIsSubmitting] = useState(false)
+ const [showpassword , setshowpassword] = useState(false)
 
 
 const form =  useForm<z.infer <typeof SigninSchema>>({
@@ -59,6 +60,7 @@ const onSubmit = async (data: z.infer <typeof SigninSchema>) => {
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
             <FormField
               name="identifier"
               control={form.control}
@@ -70,17 +72,30 @@ const onSubmit = async (data: z.infer <typeof SigninSchema>) => {
                 </FormItem>
               )}
             />
-            <FormField
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+          <FormField
+  control={form.control}
+  name="password"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Password</FormLabel>
+      <FormControl>
+        <div className='relative'>
+        <Input type= {showpassword ? 'text' : 'password'} 
+        {...field} />
+        <button
+        type='button'
+        onClick={() => setshowpassword(!showpassword)}
+         className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-black-500"
+        >
+          {showpassword ? "Show" : "Hide"}
+        </button>
+        </div>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
             <Button className='w-full' type="submit">Sign In</Button>
           </form>
         </Form>
