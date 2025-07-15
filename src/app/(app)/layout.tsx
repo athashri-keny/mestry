@@ -27,6 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
+    <Navbar/>
       {children}
       <Toaster /> {/* Keep if only needed in dashboard */}
     </>

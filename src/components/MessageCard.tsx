@@ -28,17 +28,26 @@ import axios from "axios"
 import { ApiResponse } from "@/Types/ApiResponse"
 
 
+
+
 type MessageCardProps = {
     message: Message;
     onMessageDelete: (messageId: string) => void
 }
 
 const MessageCard = ({message , onMessageDelete}: MessageCardProps) => {
+  
 const handleDeleleConfirm = async () => {
 try {
-   const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
+   await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
+   toast.success("Message Deleted sucessfully")
+
+
+
+
 } catch (error) {
   console.log("Error while Deleting the message")
+  toast.error("Error while deleting the message")
 }
 }
 
@@ -46,7 +55,7 @@ try {
   return (
    <Card>
   <CardHeader>
-    <CardTitle>Card Title</CardTitle>
+    <CardTitle>{message.content}</CardTitle>
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive"><X className="w-5 h-5"/> </Button>
@@ -65,8 +74,6 @@ try {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-    <CardDescription>Card Description</CardDescription>
-    <CardAction>Card Action</CardAction>
   </CardHeader>
   <CardContent>
   </CardContent>

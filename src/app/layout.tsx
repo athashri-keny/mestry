@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import AuthProvider from "@/Context/AuthProvider";
 import './globals.css' 
-import Navbar from "@/components/Navbar";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner" // imp to include in layout
 
 
 const geistSans = Geist({
@@ -30,9 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Navbar/>
+      <body 
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-blue-900 text-white`} >
+        <Toaster/>
         {children}
              </body>
          </AuthProvider>
