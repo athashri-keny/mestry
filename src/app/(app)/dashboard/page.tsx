@@ -3,7 +3,6 @@
 import MessageCard from '@/components/MessageCard'
 import { Message } from '@/Model/User'
 import { AcceptMEssageSchema } from '@/Schemas/AcceptMessageSchema'
-import { ApiResponse } from '@/Types/ApiResponse'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Separator } from '@radix-ui/react-separator'
 import { Switch } from '@/components/ui/switch'
@@ -17,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 
-function dashboard() {
+function Dashboard() {
   const [messages , setmessages]  = useState<Message[]>([]) // using MessageSchema  
   const [isloading , setIsloading] = useState(false)
   const [isSwitchLoading , setSwitchLoading] = useState(false)
@@ -210,4 +209,4 @@ return (
 
 }
 
-export default dashboard
+export default Dashboard
