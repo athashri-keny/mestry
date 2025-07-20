@@ -41,6 +41,7 @@ const handleDeleleConfirm = async () => {
 try {
    await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
    toast.success("Message Deleted sucessfully")
+   window.location.reload()
 
 
 

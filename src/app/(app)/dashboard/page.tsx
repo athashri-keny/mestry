@@ -27,7 +27,7 @@ function dashboard() {
   // handling Optimistic ui 
   const HandleDeleteMessage = (messageId: string) => {
     setmessages(messages.filter((messsage) => messsage._id !== messageId)) // removing
-    router.refresh()
+    
   }
 
   const {data: session} = useSession()
@@ -92,7 +92,7 @@ useEffect(() => {
  if (!session || !session.user)  return
  fetchMessages()
  fetchAcceptMessage() // checking state
-} , [session , setValue , fetchAcceptMessage , fetchMessages])
+} , [session , setValue , fetchAcceptMessage , fetchMessages ])
 
 
 

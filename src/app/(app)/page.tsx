@@ -11,12 +11,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import Autoplay from 'embla-carousel-autoplay'
-
+import Link from "next/link"
 import messages from '../messages.json'
-
-
+import { Button } from "@/components/ui/button"
 
 function Home() {
+
+
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <section className="text-center mb-12">
@@ -49,6 +51,12 @@ function Home() {
         <CarouselPrevious className="left-0" />
         <CarouselNext className="right-0" />
       </Carousel>
+      <Link href={'/sign-in'}>
+      <Button
+      className="text-2xl p-4 "
+      >Lets get Started!</Button>
+      </Link>
+
     </main>
   )
 }

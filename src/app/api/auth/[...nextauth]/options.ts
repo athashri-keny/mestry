@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
       password: { label: "Password", type: "password" }
     },
 
-    // authorize checking the information is recevied correct or not 
+        // authorize checking the information is recevied correct or not 
     async authorize(credentials: any): Promise<any>{
         await  dbConnect() // IMP
         try {
@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
         })
     ],
 
+    
     callbacks: {
     async jwt({ token, user }) {
         // adding custom fields
@@ -73,7 +74,7 @@ export const authOptions: NextAuthOptions = {
     },
     },
     pages: {
-        signIn: '/sign-in', // overide pages 
+        signIn: '/sign-in', // overide pages    
     },
     session: {
         strategy: "jwt"

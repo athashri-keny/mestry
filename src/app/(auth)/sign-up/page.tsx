@@ -83,8 +83,8 @@ function SignInPage() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-800 ">
+      <div className="w-full max-w-md p-8 space-y-8  rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Welcome Back to True Feedback
@@ -171,9 +171,9 @@ function SignInPage() {
 
         <div className="text-center mt-4">
           <p>
-            Not a member yet?{' '}
-            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
-              Sign up
+            Already Have a Account?{' '}
+            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+              Sign In
             </Link>
             
           </p>
