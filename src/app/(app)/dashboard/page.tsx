@@ -3,7 +3,6 @@
 import MessageCard from '@/components/MessageCard'
 import { Message } from '@/Model/User'
 import { AcceptMEssageSchema } from '@/Schemas/AcceptMessageSchema'
-import { ApiResponse } from '@/Types/ApiResponse'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Separator } from '@radix-ui/react-separator'
 import { Switch } from '@/components/ui/switch'
@@ -18,11 +17,10 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
 
-function dashboard() {
+function Dashboard() {
   const [messages , setmessages]  = useState<Message[]>([]) // using MessageSchema  
   const [isloading , setIsloading] = useState(false)
   const [isSwitchLoading , setSwitchLoading] = useState(false)
-  const router = useRouter()
   
   // handling Optimistic ui 
   const HandleDeleteMessage = (messageId: string) => {
@@ -212,4 +210,4 @@ return (
 
 }
 
-export default dashboard
+export default Dashboard
