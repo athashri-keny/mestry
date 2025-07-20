@@ -45,6 +45,7 @@ try {
     )
 
 } catch (error) {
+        console.log("Error while occured" , error)
       return Response.json(
         {
             success: false,

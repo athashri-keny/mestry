@@ -54,6 +54,7 @@ export async function POST(request:Request) {
     )
 
  } catch (error) {
+    console.log("Failed to update User" , error)
      return Response.json(
         {
             success: false,
@@ -66,7 +67,7 @@ export async function POST(request:Request) {
 }
 
 // checking if the user is accpeting messasge for not 
-export async function GET(request:Request) {
+export async function GET(_request: Request) {
     await dbConnect()
 
  const session = await getServerSession(authOptions)
@@ -105,7 +106,7 @@ export async function GET(request:Request) {
       
   } catch (error) {
 
-     console.log("Failed To check user status to accept messages")
+     console.log("Failed To check user status to accept messages" , error)
 
     return Response.json(
         {

@@ -8,21 +8,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Separator } from '@radix-ui/react-separator'
 import { Switch } from '@/components/ui/switch'
 import { Button } from '@react-email/components'
-import axios, {AxiosError } from 'axios'
+import axios from 'axios'
 import { Loader2, RefreshCcw } from 'lucide-react'
 import { User } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 
 
 function dashboard() {
   const [messages , setmessages]  = useState<Message[]>([]) // using MessageSchema  
   const [isloading , setIsloading] = useState(false)
   const [isSwitchLoading , setSwitchLoading] = useState(false)
-  const router = useRouter()
   
   // handling Optimistic ui 
   const HandleDeleteMessage = (messageId: string) => {

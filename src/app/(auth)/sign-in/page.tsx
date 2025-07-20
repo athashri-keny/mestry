@@ -14,9 +14,8 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 
 
-function signin() {
+function Signin() {
  const router = useRouter()
- const [isSubmitting , setIsSubmitting] = useState(false)
  const [showpassword , setshowpassword] = useState(false)
 
 
@@ -29,7 +28,6 @@ defaultValues: {
 })
 
 const onSubmit = async (data: z.infer <typeof SigninSchema>) => {
-  setIsSubmitting(true)
  
  const result =  await signIn('credentials' , {
     redirect: false, // maunally directing
@@ -112,4 +110,4 @@ const onSubmit = async (data: z.infer <typeof SigninSchema>) => {
   )
 }
 
-export default signin
+export default Signin

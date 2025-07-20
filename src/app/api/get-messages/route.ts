@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.log("Error while occured" , error)
     return new Response(
       JSON.stringify({ success: false, message: "Failed to fetch messages" }),
       { status: 500 }

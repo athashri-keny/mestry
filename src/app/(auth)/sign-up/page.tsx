@@ -111,9 +111,14 @@ function SignInPage() {
                     />
                      </FormControl>
                   <FormMessage />
-                  {usernamemessage && (
-                    <p className="text-sm text-gray-500 mt-1">{usernamemessage}</p>
-                  )}
+                  {isCheckingUsername ? (
+  <p className="text-sm text-blue-500 mt-1">Checking availability...</p>
+) : usernamemessage && (
+  <p className={`text-sm mt-1 ${usernamemessage.includes('available') ? 'text-green-500' : 'text-red-500'}`}>
+    {usernamemessage}
+  </p>
+)}
+
                 </FormItem>
               )}
             />
