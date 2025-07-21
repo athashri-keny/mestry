@@ -2,7 +2,6 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/Model/User";
 import {z} from 'zod'
 import { usernameValidation } from "@/Schemas/SignupSchema";
-import { success } from "zod/v4";
 
 
 // qurey schema

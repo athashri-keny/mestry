@@ -32,7 +32,7 @@ type MessageCardProps = {
     onMessageDelete: (messageId: string) => void
 }
 
-const MessageCard = ({message , onMessageDelete}: MessageCardProps) => {
+const MessageCard = ({message }: MessageCardProps) => {
   
 const handleDeleleConfirm = async () => {
 try {
@@ -44,7 +44,7 @@ try {
 
 
 } catch (error) {
-  console.log("Error while Deleting the message")
+  console.log("Error while Deleting the message", error)
   toast.error("Error while deleting the message")
 }
 }
