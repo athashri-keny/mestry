@@ -8,7 +8,7 @@ import { usernameValidation } from "@/Schemas/SignupSchema";
 const UsernameQureySchema = z.object({
     username: usernameValidation
 })
-
+    
 
 export async function GET(request: Request) {
 

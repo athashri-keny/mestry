@@ -5,13 +5,13 @@ import UserModel from "@/Model/User";
 import { User } from "next-auth";
 import { NextRequest } from "next/server";
 
+
 export async function DELETE(_request:NextRequest , {params}: {params: {messageid: string}}) {
+
   const messageId =  params.messageid
-   
     await dbConnect()
 
-    
- const session = await getServerSession(authOptions) // getServerSession is used to check if the user is logged-in or not 
+    const session = await getServerSession(authOptions) // getServerSession is used to check if the user is logged-in or not 
  const user: User = session?.user as User
 
  if (!session || !session.user) {
